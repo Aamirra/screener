@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currency Screener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 400px;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #333;
+      color: white;
+    }
+    .buy {
+      color: green;
+      font-weight: bold;
+    }
+    .sell {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Currency Screener Demo</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pair</th>
+        <th>Buy</th>
+        <th>Sell</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="screener-body"></tbody>
+  </table>
+
+  <script>
+    // Dummy screener data - aap future me real API se replace kar sakte hain
+    const screenerData = [
+      { pair: "EURUSD", buy: true, sell: false },
+      { pair: "USDJPY", buy: false, sell: true },
+      { pair: "XAUUSD", buy: false, sell: false }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById('screener-body');
+      tbody.innerHTML = ''; // Clear existing rows
+
+      screenerData.forEach(item => {
+        const tr = document.createElement('tr');
+
+        // Pair
+        const tdPair = document.createElement('td');
+        tdPair.textContent = item.pair;
+        tr.appendChild(tdPair);
+
+        // Buy
+        const tdBuy = document.createElement('td');
+        tdBuy.textContent = item.buy ? "✅" : "❌";
+        tdBuy.className = item.buy ? 'buy' : '';
+        tr.appendChild(tdBuy);
+
+        // Sell
+        const tdSell = document.createElement('td');
+        tdSell.textContent = item.sell ? "✅" : "❌";
+        tdSell.className = item.sell ? 'sell' : '';
+        tr.appendChild(tdSell);
+
+        // Status
+        const tdStatus = document.createElement('td');
+        if (item.buy) tdStatus.textContent = "BUY";
+        else if (item.sell) tdStatus.textContent = "SELL";
+        else tdStatus.textContent = "—";
+        tdStatus.style.color = item.buy ? 'green' : (item.sell ? 'red' : 'black');
+        tr.appendChild(tdStatus);
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    renderTable();
+  </script>
+
+</body>
+</html>
